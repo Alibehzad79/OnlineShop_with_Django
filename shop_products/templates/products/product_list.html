@@ -1,0 +1,113 @@
+{% extends "shared/_MainLayout.html" %}
+{% load static %}
+{% load render_partial %}
+
+{% block content %}
+
+    <div class="darker-stripe">
+        <div class="container">
+        	<div class="row">
+        		<div class="span12">
+        		    <ul class="breadcrumb">
+	                    <li>
+	                        <a href="/">وبمارکت</a>
+	                    </li>
+	                    <li><span class="icon-chevron-right"></span></li>
+	                    <li>
+	                        <a href="/products">فروشگاه</a>
+	                    </li>
+	                </ul>
+        		</div>
+        	</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="push-up blocks-spacer">
+            <div class="row">
+                <section class="span12">
+
+
+
+                    <!--  ==========  -->
+                    <!--  = Title =  -->
+                    <!--  ==========  -->
+                    <div class="underlined push-down-20">
+                        <div class="row">
+                            <div class="span6">
+                                <h3><span class="light">همه</span> محصولات</h3>
+                            </div>
+                            <div class="span6">
+                            </div> <!-- /sorting and number shown -->
+                        </div>
+                    </div>
+                        </div>
+                    </div> <!-- /title -->
+
+                    <!--  ==========  -->
+                    <!--  = Products =  -->
+                    <!--  ==========  -->
+                    <div class="row popup-products">
+                        <div id="isotopeContainer" class="isotope-container isotope" style="position: relative; overflow: hidden; height: 840px;">
+
+
+                	        <!--  ==========  -->
+							<!--  = Single Product =  -->
+							<!--  ==========  -->
+                    	    {% for product in page_obj %}
+                    	        <div class="span3 filter--hats isotope-item" data-category="" style="position: absolute; left: 0px; top: 0px; transform: translate3d(480px, 581px, 0px);">
+                    	        <div class="product" >
+
+                    	                <div class="stamp green">{{ product.new_type }}</div>
+
+                    	            <div class="product-img">
+                    	                <div class="picture">
+                    	                    <img alt="" src="{{ product.image.url }}" width="540" height="374">
+                    	                    <div class="img-overlay">
+                    	                        <a class="btn more btn-primary" href="{{ product.get_absolut_url }}">توضیحات بیشتر</a>
+                    	                    </div>
+                    	                </div>
+                    	            </div>
+                    	            <div class="main-titles no-margin">
+
+                    	                <h4 class="title">{{ product.price }} تومان</h4>
+
+                    	                <h5 class="no-margin isotope--title">{{ product.title }}</h5>
+                    	            </div>
+                    	        </div>
+                    	    </div> <!-- /single product -->
+                    	    {% endfor %}
+
+
+
+                    	</div> <!-- /isotope-container -->
+                	</div> <!-- /popup-products -->
+                	<hr>
+
+
+                	<!--  ==========  -->
+					<!--  = Pagination =  -->
+					<!--  ==========  -->
+            	    <div class="pagination pagination-centered">
+                        <ul>
+                                 {% if page_obj.has_previous %}
+                                     <a class="btn btn-info" href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                                 {% endif %}
+                                {% for num in paginator.page_range %}
+                                {% if num == page_obj.number %}
+                                    <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                                    {% else %}
+                                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                 <a class="btn btn-info" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                {% endif %}
+                        </ul>
+                    </div> <!-- /pagination -->
+                </section> <!-- /span12 -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

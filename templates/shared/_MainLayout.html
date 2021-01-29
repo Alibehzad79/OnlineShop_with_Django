@@ -1,0 +1,61 @@
+{% load static %}
+{% load render_partial %}
+<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    {% render_partial 'head' %}
+    {% include 'shared/_HeaderReferenced.html' %}
+  </head>
+
+
+  <body class="">
+
+    <div class="master-wrapper">
+
+    <!--  ==========  -->
+    <!--  = Header =  -->
+    <!--  ==========  -->
+    {% render_partial 'header' %}
+
+    <!--  ==========  -->
+    <!--  = Main Menu / navbar =  -->
+    <!--  ==========  -->
+    {% block content %}
+
+    {% endblock %}
+
+
+
+
+    <!--  ==========  -->
+    <!--  = Footer =  -->
+    <!--  ==========  -->
+    
+    {% render_partial 'footer' %}
+
+
+    <!--  ==========  -->
+    <!--  = Modal Windows =  -->
+    <!--  ==========  -->
+
+
+    </div> <!-- end of master-wrapper -->
+
+
+
+    <!--  ==========  -->
+    <!--  = JavaScript =  -->
+    <!--  ==========  -->
+
+    <!--  = FB =  -->
+
+    <div id="fb-root"></div>
+   {% include 'shared/_FooterReferenced.html' %}
+
+  </body>
+</html>
+
+

@@ -1,0 +1,163 @@
+{% extends "shared/_MainLayout.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="darker-stripe">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/">{{ setting.title }}</a>
+                        </li>
+                        <li><span class="icon-chevron-right"></span></li>
+                        <li>
+                            <a href="/blog">بلاگ</a>
+                        </li>
+                        <li><span class="icon-chevron-right"></span></li>
+                        <li>
+                            <a href="{{ blog.get_absolut_blog_url }}">{{ blog.title }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="push-up top-equal blocks-spacer">
+            <div class="row">
+
+                <!--  ==========  -->
+                <!--  = Main Title =  -->
+                <!--  ==========  -->
+
+                <div class="span12">
+                    <div class="title-area">
+                        <h1 class="inline"><span class="light">بلاگ</span> {{ setting.title }}</h1>
+                        <h2 class="inline tagline">- جایی که آدمهای باهوش، حرفهای احمقانه میزنند!</h2>
+                    </div>
+                </div>
+
+                <!--  ==========  -->
+                <!--  = Main content =  -->
+                <!--  ==========  -->
+                <section class="span8 single single-post">
+
+                    <!--  ==========  -->
+                    <!--  = Post =  -->
+                    <!--  ==========  -->
+                    <article class="post format-image">
+                        <div class="post-inner">
+                            <img src="{{ blog.image.url }}" style="height: 349px;" width="620" height="349"/>
+                            <div class="post-title">
+                            	<h2>{{ blog.title }}</h2>
+                            	<div class="metadata">
+                            	    {{ blog.title }} <br>
+                                      تعداد بازدید :{{ blog.blog_visit }}  <br>
+                            	    نویسنده:  {{ blog.author_name }}
+                            	</div>
+                            </div>
+
+                            <p>
+                               {{ blog.description }}
+                            </p>
+                        </div>
+                    </article>
+
+                    <hr>
+
+                    <!--  ==========  -->
+                    <!--  = Comments =  -->
+                    <!--  ==========  -->
+
+                    <section id="comments" class="comments-container">
+                        <h3 class="push-down-25"> نظرات</h3>
+
+                        <!--  ==========  -->
+                        <!--  = Single Comment =  -->
+                        <!--  ==========  -->
+                        <div class="single-comment clearfix">
+                            <div class="comment-content">
+                                {% for comment in comments %}
+                                    <div class="comment-inner">
+                                    <cite class="author-name">
+                                        {{ comment.full_name }}
+                                    </cite>
+                                    <div class="comment-text">
+                                       {{ comment.text }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+
+
+                        <hr>
+
+                        <h3 class="push-down-25"><span class="light">نظر</span> بدهید</h3>
+
+                        <form id="commentform" method="post" class="form form-inline form-comments">
+                            {% csrf_token %}
+                            {{ blog_form.blog_id }}
+                            <p class="push-down-20">
+                                {{ blog_form.full_name.label }}
+                                {{ blog_form.full_name }}
+                                {% for error in blog_form.full_name.errors %}
+                                    <p class="alert alert-danger">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                            <p class="push-down-20">
+                                {{ blog_form.email.label }}
+                                {{ blog_form.email }}
+                                {% for error in blog_form.email.errors %}
+                                    <p class="alert alert-danger">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+
+                            <p class="push-down-20">
+                                {{ blog_form.text.label }}
+                                {{ blog_form.text }}
+                                {% for error in blog_form.text.errors %}
+                                    <p class="alert alert-danger">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <button class="btn btn-primary bold" type="submit" tabindex="5" id="submit">ارسال نظر</button>
+                            </p>
+                        </form>
+
+                    </section>
+
+                </section> <!-- /main content -->
+
+                <!--  ==========  -->
+                <!--  = Sidebar =  -->
+                <!--  ==========  -->
+                <aside class="span4 right-sidebar">
+
+                    <!--  ==========  -->
+                    <!--  = Search Widget =  -->
+                    <!--  ==========  -->
+                    <div class="sidebar-item widget_search">
+                        <!-- <div class="underlined">
+                            <h3><span class="light">Search</span></h3>
+                        </div> -->
+
+                        <form class="form" action="/blog/search" id="searchform" method="get" role="search">
+                            <input type="text" id="appendedInputButton" class="input-block-level" name="s" value="{{ request.GET.s }}" placeholder="جستجو در نوشته ها ...">
+                            <button type="submit">
+                                <i class="icon-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+
+                </aside> <!-- /sidebar -->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

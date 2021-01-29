@@ -1,0 +1,229 @@
+{% extends "shared/_MainLayout.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="push-up top-equal blocks-spacer">
+
+            <!--  ==========  -->
+            <!--  = Product =  -->
+            <!--  ==========  -->
+            <div class="row blocks-spacer">
+
+                <!--  ==========  -->
+                <!--  = Preview Images =  -->
+                <!--  ==========  -->
+                <div class="span5">
+                    <div class="product-preview">
+                        <div class="picture">
+                            <img src="{{ product.image.url }}" alt="" id="mainPreviewImg" width="940" height="940">
+                        </div>
+                        <div class="thumbs clearfix">
+                            <div class="thumb active">
+                                <a href="#mainPreviewImg"><img src="{{ product.image.url }}" alt="{{ product.title }}" width="940" height="940"></a>
+                            </div>
+                            <div class="thumb">
+                                <a href="#mainPreviewImg"><img src="{{ gallery.image_1.url }}" alt="{{ gallery.title }}" width="940" height="940"></a>
+                            </div>
+                            <div class="thumb">
+                                <a href="#mainPreviewImg"><img src="{{ gallery.image_2.url }}" alt="{{ gallery.title }}" width="940" height="940"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  ==========  -->
+                <!--  = Title and short desc =  -->
+                <!--  ==========  -->
+                <div class="span7">
+                    <div class="product-title">
+                        <h1 class="name">{{ product.title }}</h1>
+                        <div class="meta">
+                            <span class="tag">{{ product.price }} تومان</span>
+                            <span class="stock">
+                                <span class="btn btn-success">موجود</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product-description">
+                        <p>{{ product.description }}</p>
+                        <hr>
+
+                        <!--  ==========  -->
+                        <!--  = Add to cart form =  -->
+                        <!--  ==========  -->
+                        <form action="/add-user-order" class="form form-inline clearfix" method="post">
+                            {% csrf_token %}
+                            {{ new_order_form.product_id }}
+                            <div class="span3">
+                                {{ new_order_form.count }}
+                            </div>
+                            &nbsp;
+                            {% comment %}<select name="color" class="span2">
+                                <option value="-1">انتخاب رنگ</option>
+                                <option value="blue">آبی</option>
+                                <option value="orange">نارنجی</option>
+                                <option value="black">مشکی</option>
+                            </select>
+                            &nbsp;
+                            <select name="size" class="span2">
+                                <option value="-1">انتخاب سایز</option>
+                                <option value="XS">خیلی کوچک</option>
+                                <option value="S">کوچک</option>
+                                <option value="M">متوسط</option>
+                                <option value="L">بزرگ</option>
+                                <option value="XL">خیلی بزرگ</option>
+                                <option value="XXL">خیلی خیلی بزرگ</option>
+                            </select>{% endcomment %}
+                            <button type="submit" class="btn btn-danger pull-right"><i class="icon-shopping-cart"></i> اضافه به سبد خرید</button>
+                        </form>
+
+                        <hr>
+
+                        <!--  ==========  -->
+                        <!--  = Share buttons =  -->
+                        <!--  ==========  -->
+
+                    </div>
+                </div>
+            </div>
+
+            <!--  ==========  -->
+            <!--  = Tabs with more info =  -->
+            <!--  ==========  -->
+            <div class="row">
+                <div class="span12">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab-1" data-toggle="tab">جزئیات</a>
+                        </li>
+                        <li>
+                            <a href="#tab-2" data-toggle="tab">سایز</a>
+                        </li>
+                        <li>
+                            <a href="#tab-3" data-toggle="tab">نظرات</a>
+                        </li>
+                        <li>
+                            <a href="#tab-4" data-toggle="tab">جزئیات ارسال</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="fade in tab-pane active" id="tab-1">
+                            <h3>توضیحات محصول</h3>
+                            <p>{{ product.description }}</p>
+                        </div>
+                        <div class="fade tab-pane" id="tab-2">
+                            <p>
+                               {{ product.product_size }}
+                            </p>
+                        </div>
+                        <div class="fade tab-pane" id="tab-3">
+                            <section id="comments" class="comments-container">
+                        <!--  ==========  -->
+                        <!--  = Single Comment =  -->
+                        <!--  ==========  -->
+                        <div class="single-comment clearfix">
+                            <div class="comment-content">
+                                {% for comment in comments %}
+                                    <div class="comment-inner">
+                                    <cite class="author-name">
+                                        {{ comment.full_name }}
+                                    </cite>
+                                    <div class="comment-text">
+                                       {{ comment.text }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+
+                        <hr>
+
+                        <h3 class="push-down-25"><span class="light">نظر</span> بدهید</h3>
+
+                        <form id="commentform" method="post" action="" class="form form-inline form-comments">
+                            {% csrf_token %}
+                            {{ product_form.product_id }}
+                            <p class="push-down-20">
+                                {{ product_form.full_name.label }}
+                                {{ product_form.full_name }}
+                                {% for error in product_form.full_name.errors %}
+                                    <p class="alert alert-danger">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                            <p class="push-down-20">
+                                {{ product_form.email.label }}
+                                {{ product_form.email }}
+                                {% for error in product_form.email.errors %}
+                                    <p class="alert alert-danger">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+
+                            <p class="push-down-20">
+                                {{ product_form.text.label }}
+                                {{ product_form.text }}
+                                {% for error in product_form.text.errors %}
+                                    <p class="alert alert-danger">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <button class="btn btn-primary bold" type="submit" href="{{ product.get_absolut_url }}" tabindex="5" id="submit">ارسال نظر</button>
+                            </p>
+                        </form>
+
+                    </section>
+
+                        </div>
+                        <div class="fade tab-pane" id="tab-4">
+                            <p>
+                                {{ product.posting_details }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="boxed-area no-bottom">
+        <div class="container">
+
+            <!--  ==========  -->
+            <!--  = Title =  -->
+            <!--  ==========  -->
+            <div class="row">
+                <div class="span12">
+                    <div class="main-titles lined">
+                    	<h2 class="title"><span class="light">محصولات</span> مرتبط</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!--  ==========  -->
+            <!--  = Related products =  -->
+            <!--  ==========  -->
+            <div class="row popup-products">
+                {% for product_lsit in related_product %}
+            	<div class="span3">
+            	         <div class="product">
+            	            <div class="product-img">
+                                <div class="picture">
+                                <img src="{{ product_lsit.image.url }}" alt="" width="540" height="374">
+                                <div class="img-overlay">
+                                    <a href="{{ product_lsit.get_absolut_url }}" class="btn more btn-primary">توضیحات بیشتر</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-titles no-margin">
+                            <h4 class="title"><span class="">{{ product_lsit.price }} تومان</span></h4>
+                            <h5 class="no-margin">{{ product_lsit.title }}</h5>
+                        </div>
+            	    </div>
+            	</div> <!-- /product -->
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

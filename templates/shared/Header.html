@@ -1,0 +1,112 @@
+
+<header id="header">
+    <div class="container">
+        <div class="row">
+
+            <!--  ==========  -->
+            <!--  = Logo =  -->
+            <!--  ==========  -->
+            <div class="span7">
+                <a class="brand" href="/">
+                    <img src="{{ setting.logo.url }}" alt="{{ setting.title }} Logo" width="48" height="48"/>
+                    <span class="pacifico">{{ setting.title }}</span>
+                </a>
+            </div>
+
+            <!--  ==========  -->
+            <!--  = Social Icons =  -->
+            <!--  ==========  -->
+            <div class="span5">
+                <div class="topmost-line">
+                    <div class="lang-currency">
+                        <div class="dropdown js-selectable-dropdown">
+                            <span class="js-change-text"></span>
+                            <!-- for all available country flags look the styles in lib/components/_flags.scss -->
+                        </div>
+                        <div class="dropdown js-selectable-dropdown">
+                            <span class="js-change-text"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-right">
+                    <div class="icons">
+                        {% for social in social_network %}
+                            <a href="{{ social.link }}"><span class="zocial-{{ social.name }}"></span></a>
+                        {% endfor %}
+
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <a href="/log-out" role="button" data-toggle="modal"><span class="btn btn-danger">خروج</span>
+                        </a>
+                        <a href="/panel" role="button" data-toggle="modal"><span class="btn btn-info">پنل کاربری</span>
+                        </a>
+                    {% else %}
+                        <div class="register">
+                            <a href="/login" role="button" data-toggle="modal"><span
+                                    class="btn btn-primary"> ورود </span></a>
+                            <a href="/register" role="button" data-toggle="modal"><span
+                                    class="btn btn-primary"> ثبت نام</span></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div> <!-- /social icons -->
+        </div>
+    </div>
+</header>
+<div class="navbar navbar-static-top" id="stickyNavbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="row">
+                <div class="span9">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!--  ==========  -->
+                    <!--  = Menu =  -->
+                    <!--  ==========  -->
+                    <div class="nav-collapse collapse">
+                        <ul class="nav" id="mainNavigation">
+                            <li class="dropdown active">
+                                <a href="/" class="dropdown-toggle"> خانه </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="/products" class="dropdown-toggle"> فروشگاه </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="/blog" class="dropdown-toggle">بلاگ </a>
+                            </li>
+                            <li><a href="/about-us">درباره ما</a></li>
+                            <li><a href="/contact">تماس با ما</a></li>
+                        </ul>
+
+                        <!--  ==========  -->
+                        <!--  = Search form =  -->
+                        <!--  ==========  -->
+                        {% include 'shared/search_referenced.html' %}
+                    </div><!-- /.nav-collapse -->
+                </div>
+
+                <!--  ==========  -->
+                <!--  = Cart =  -->
+                <!--  ==========  -->
+                {% if request.user.is_authenticated %}
+                    <div class="span3">
+                        <div class="cart-container" id="cartContainer">
+                            <div class="cart">
+                                <p class="items">سبد خرید <span class="dark-clr"></span></p>
+                                <a href="/order" class="btn btn-danger">
+                                    <span class="icon icons-cart"></span>
+                                    <i class="icon-shopping-cart"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div> <!-- /cart -->
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div> <!-- /main menu -->

@@ -1,0 +1,263 @@
+{% extends 'shared/_MainLayout.html' %}
+
+{% block content %}
+    <!--  ==========  -->
+    <!--  = Slider Revolution =  -->
+    <!--  ==========  -->
+    <div class="fullwidthbanner-container">
+        <div class="fullwidthbanner">
+            <ul>
+                {% for slider in sliders %}
+                    <li data-transition="premium-random" data-slotamount="3">
+                    <img src="{{ slider.image.url }}" alt="{{ slider.title }}" width="1400" height="377" />
+
+                    <!-- texts -->
+                    <div class="caption lfl big_theme"
+                        data-x="120"
+                        data-y="120"
+                        data-speed="1000"
+                        data-start="500"
+                        data-easing="easeInOutBack">
+                        {{ slider.title }}
+                    </div>
+
+                    <div class="caption lfl small_theme"
+                        data-x="120"
+                        data-y="190"
+                        data-speed="1000"
+                        data-start="700"
+                        data-easing="easeInOutBack">
+                        {{ slider.description }}
+                    </div>
+
+                    <a href="{{ slider.link }}" class="caption lfl btn btn-primary btn_theme"
+                        data-x="120"
+                        data-y="260"
+                        data-speed="1000"
+                        data-start="900"
+                        data-easing="easeInOutBack">
+                        بیشتر
+                    </a>
+                </li><!-- /slide -->
+                {% endfor %}
+
+            </ul>
+            <div class="tp-bannertimer"></div>
+        </div>
+        <!--  ==========  -->
+        <!--  = Nav Arrows =  -->
+        <!--  ==========  -->
+        <div id="sliderRevLeft"><i class="icon-chevron-left"></i></div>
+        <div id="sliderRevRight"><i class="icon-chevron-right"></i></div>
+    </div> <!-- /slider revolution -->
+
+    <!--  ==========  -->
+    <!--  = Main container =  -->
+    <!--  ==========  -->
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="push-up over-slider blocks-spacer">
+
+                    <!--  ==========  -->
+                    <!--  = Three Banners =  -->
+                    <!--  ==========  -->
+                    <div class="row">
+                        <div class="span4">
+                            <a href="/products/special" class="btn btn-block banner">
+                                <span class="title"><span class="light"> محصولات</span> ویژه</span>
+                                <em>از محصولات ویژه ما دیدن کنید.</em>
+                            </a>
+                        </div>
+                        <div class="span4">
+                            <a href="#" class="btn btn-block colored banner">
+                                <span class="title"><span class="light">ارسال</span> رایگان</span>
+                                <em>برای خرید های بیش از 69000 تومان</em>
+                            </a>
+                        </div>
+                        <div class="span4">
+                            <a href="/products/new" class="btn btn-block banner">
+                                <span class="title"><span class="light">محصولات</span> جدید</span>
+                                <em>از محصولات جدید دیدن کنید.</em>
+                            </a>
+                        </div>
+                    </div> <!-- /three banners -->
+                </div>
+            </div>
+        </div>
+
+        <!--  ==========  -->
+        <!--  = Featured Items =  -->
+        <!--  ==========  -->
+        <div class="row featured-items blocks-spacer">
+            <div class="span12">
+
+                <!--  ==========  -->
+                <!--  = Title =  -->
+                <!--  ==========  -->
+            </div>
+
+        </div>
+    </div> <!-- /container -->
+
+    <!--  ==========  -->
+    <!--  = New Products =  -->
+    <!--  ==========  -->
+    <div class="boxed-area blocks-spacer">
+        <div class="container">
+
+            <!--  ==========  -->
+            <!--  = Title =  -->
+            <!--  ==========  -->
+            <div class="row">
+                <div class="span12">
+                    <div class="main-titles lined">
+                        <a href="/products/new"><h2 class="title"><span class="light">محصولات</span> جدید فروشگاه</h2></a>
+                    </div>
+                </div>
+            </div> <!-- /title -->
+
+            <div class="row popup-products blocks-spacer">
+
+
+                <!--  ==========  -->
+                <!--  = Product =  -->
+                <!--  ==========  -->
+            	{% for product in product_new %}
+            	    <div class="span3">
+            	    <div class="product">
+            	        <div class="product-img">
+                            <div class="picture">
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}" width="540" height="374" />
+                                <div class="img-overlay">
+                                    <a href="{{ product.get_absolut_url }}" class="btn more btn-primary">توضیحات بیشتر</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-titles no-margin">
+                            <h4 class="title">{{ product.price }} تومان</h4>
+                            <h5 class="no-margin">{{ product.title }}</h5>
+                        </div>
+            	    </div>
+            	</div> <!-- /product -->
+            	{% endfor %}
+
+
+
+            	<div class="clearfix"></div>
+
+
+
+            </div>
+        </div>
+    </div> <!-- /new products -->
+
+    <!--  ==========  -->
+    <!--  = Most Popular products =  -->
+    <!--  ==========  -->
+    <div class="most-popular blocks-spacer">
+    	<div class="container">
+
+    	    <!--  ==========  -->
+			<!--  = Title =  -->
+			<!--  ==========  -->
+    	    <div class="row">
+    	    	<div class="span12">
+    	    	    <div class="main-titles lined">
+                        <a href="/products/most_popular"><h2 class="title"><span class="light">محبوبترین</span>محصولات فروشگاه</h2></a>
+    	            </div>
+    	    	</div>
+    	    </div> <!-- /title -->
+
+	    	<div class="row popup-products">
+
+
+
+		        <!--  ==========  -->
+				<!--  = Product =  -->
+				<!--  ==========  -->
+                {% for product_list in product_view %}
+                    {% for product in product_list %}
+                        <div class="span3">
+                    <div class="product">
+                        <div class="product-img">
+                            <div class="picture">
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}" width="540" height="412" />
+                                <div class="img-overlay">
+                                    <a href="{{ product.get_absolut_url }}" class="btn more btn-primary">توضیحات بیشتر</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-titles no-margin">
+                            <h4 class="title">{{ product.price }} تومان</h4>
+                            <h5 class="no-margin">{{ product.title }}</h5>
+                        </div>
+                    </div>
+                </div> <!-- /product -->
+                    {% endfor %}
+
+                {% endfor %}
+                
+
+                    	    </div>
+    	</div>
+    </div> <!-- /most popular -->
+
+    <!--  ==========  -->
+    <!--  = Lastest News =  -->
+    <!--  ==========  -->
+    <div class="darker-stripe blocks-spacer more-space latest-news with-shadows">
+    	<div class="container">
+
+    	    <!--  ==========  -->
+			<!--  = Title =  -->
+			<!--  ==========  -->
+    		<div class="row">
+    			<div class="span12">
+    			    <div class="main-titles center-align">
+    			        <h2 class="title">
+    			            <span class="clickable icon-chevron-right" id="tweetsRight"></span> &nbsp;&nbsp;&nbsp;
+    			            <span class="light">آخرین</span> خبر ها &nbsp;&nbsp;&nbsp;
+    			            <span class="clickable icon-chevron-left" id="tweetsLeft"></span>
+			            </h2>
+    			    </div>
+    			</div>
+    		</div> <!-- /title -->
+
+    		<!--  ==========  -->
+			<!--  = News content =  -->
+			<!--  ==========  -->
+    		<div class="row">
+    		    <div class="span12">
+    		        <div class="carouFredSel" data-nav="tweets" data-autoplay="false">
+
+
+		                <!--  ==========  -->
+						<!--  = Slide =  -->
+						<!--  ==========  -->
+                            <div class="slide">
+                        	    <div class="row">
+                                    {% for blog in lasted_blog %}
+                        		        <div class="span6">
+                        		        <div class="news-item">
+                        		            <div class="published">{{ blog.time }}</div>
+                        		            <h6><a href="{{ blog.get_absolut_blog_url }}">{{ blog.title }}</a></h6>
+                        		        </div>
+                        		    </div>
+                                    {% endfor %}
+                        	    </div>
+                            </div> <!-- /slide -->
+                    </div>
+    		    </div>
+    		</div> <!-- /news content -->
+    	</div>
+    </div> <!-- /latest news -->
+
+    <!--  ==========  -->
+    <!--  = Brands Carousel =  -->
+    <!--  ==========  -->
+	<div class="container blocks-spacer-last">
+
+
+	</div> <!-- /brands carousel -->
+{% endblock %}

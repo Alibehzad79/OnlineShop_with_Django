@@ -1,0 +1,26 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load render_partial %}
+
+{% block content %}
+    {% render_partial 'shop_account.views.user_sidebar' %}
+    <form id="commentform" method="post" action="" class="form form-actions form-contact">
+        {% csrf_token %}
+        <p class="push-down-20">
+            {{ edit_profile.first_name.label }}
+            {{ edit_profile.first_name }}
+            {% for error in edit_profile.first_name.errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+        </p>
+        <p class="push-down-20">
+            {{ edit_profile.last_name.label }}
+            {{ edit_profile.last_name }}
+            {% for error in edit_profile.last_name.errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+            {% endfor %}
+        </p>
+        <p>
+            <button class="btn btn-primary bold" type="submit" tabindex="5" id="submit">ذخیره</button>
+        </p>
+    </form>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'shared/_MainLayout.html'%}
+{% load static %}
+
+{% block content %}
+    <div class="darker-stripe">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/">وبمارکت</a>
+                        </li>
+                        <li><span class="icon-chevron-right"></span></li>
+                        <li>
+                            <a href="/about-us">درباره ما</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container">
+    <div class="push-up blocks-spacer">
+        <div class="row">
+
+            <!--  ==========  -->
+            <!--  = Sidebar =  -->
+            <!--  ==========  -->
+            <aside class="span3">
+                <div class="sidebar-item">
+
+                    <!--  ==========  -->
+                    <!--  = Sidebar Title =  -->
+                    <!--  ==========  -->
+                    <div class="underlined">
+                        <h3><span class="light">تیم</span> ما</h3>
+                    </div>
+
+                    <!--  ==========  -->
+                    <!--  = Menu (affix) =  -->
+                    <!--  ==========  -->
+                    <div class="row">
+                        <div class="span3 affix-top" id="spyMenu">
+                            <ul class="nav nav-pills nav-stacked">
+                                {% for team in our_team %}
+                                <li><a href="#{{ team.full_name }}">{{ team.full_name }} <i
+                                        class="icon-caret-right pull-right"></i></a></li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </aside> <!-- /sidebar -->
+
+            <!--  ==========  -->
+            <!--  = Main content =  -->
+            <!--  ==========  -->
+            <section class="span9">
+
+                <!--  ==========  -->
+                <!--  = Title =  -->
+                <!--  ==========  -->
+                <div class="underlined push-down-20">
+                    <h3><span class="light">چند کلمه</span> درباره ما</h3>
+                </div> <!-- /title -->
+
+                <!--  ==========  -->
+                <!--  = Description=  -->
+                <!--  ==========  -->
+                <section class="blocks-spacer">
+                    {% for about in about_us %}
+                        <h5><span class="light">{{ about.title }}</span></h5>
+                    <p>{{ about.description }}</p>
+                    {% endfor %}
+
+                </section>
+
+                <!--  ==========  -->
+                <!--  = Team Members =  -->
+                <!--  ==========  -->
+                <section>
+
+                    <!--  ==========  -->
+                    <!--  = Title =  -->
+                    <!--  ==========  -->
+                    <div class="underlined push-down-20">
+                        <h3><span class="light">صورتهای</span> پشت وبمارکت</h3>
+                    </div> <!-- /title -->
+
+                    {% for my_team in our_team %}
+                    <div class="row-fluid push-down-20" id="{{ my_team.full_name }}">
+                        <div class="span4 pull-right">
+                            <img src="{{ my_team.image.url }}" alt="person" width="550" height="660">
+                        </div>
+                        <div class="span4 pull-right">
+                            <h4><span class="light title-area">{{ my_team.full_name }}</span></h4>
+                            <br>
+                            <p class="text-center light title-area">{{ my_team.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+                <hr>
+            </section> <!-- /main content -->
+        </div>
+    </div>
+</div>
+{% endblock %}

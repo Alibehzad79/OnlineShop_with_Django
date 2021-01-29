@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Manjari&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{% static 'login_register/style.css' %}">
+</head>
+<body>
+
+<div class="form">
+
+    <div id="login">
+        <h1>وارد شو</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="label-field">
+                <span style="size: 20px; color: whitesmoke">{{ login_form.user_name.label }}</span>
+                {{ login_form.user_name }}
+                {% for error in login_form.user_name.errors %}
+                    <p class="alert-danger">{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+            <div class="label-field">
+                <span style="color: whitesmoke">{{ login_form.password.label }}</span>
+                {{ login_form.password }}
+                {% for error in login_form.password.errors %}
+                    <p class="alert alert-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <p class="forgot"><a href="#">رمز عبورتان را فراموش کردید؟</a></p>
+
+            <button type="submit" class="button button-block">ورود</button>
+
+        </form>
+
+    </div>
+    <hr>
+    <div class="">
+        <a href="/register">
+            <button class="button button-block">ثبت نام</button>
+        </a>
+    </div>
+
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="{% static 'login_register/function.js' %}"></script>
+
+</body>
+</html>
+

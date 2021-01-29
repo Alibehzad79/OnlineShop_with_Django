@@ -1,0 +1,19 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load render_partial %}
+
+{% block content %}
+    {% render_partial 'shop_account.views.user_sidebar' %}
+    <div class="container">
+        <div class="span2">
+            <ul>نام:
+                <li class="title-area">{{ user.first_name }}</li>
+            </ul>
+            <ul>نام خانوادگی:
+                <li class="title-area">{{ user.last_name }}</li>
+            </ul>
+            <ul class="">ایمیل:
+                <li>{{ user.email }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

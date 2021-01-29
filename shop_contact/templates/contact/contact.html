@@ -1,0 +1,161 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="darker-stripe">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/">{{ setting.title }}</a>
+                        </li>
+                        <li><span class="icon-chevron-right"></span></li>
+                        <li>
+                            <a href="/contact">ارتباط با ما</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="push-up top-equal blocks-spacer-last">
+            <div class="row">
+
+                <!--  ==========  -->
+                <!--  = Main Title =  -->
+                <!--  ==========  -->
+
+                <div class="span12">
+                    <div class="title-area">
+                        <h1 class="inline"><span class="light">با ما</span> ارتباط برقرار کنید.</h1>
+                    </div>
+                </div>
+
+                <!--  ==========  -->
+                <!--  = Main content =  -->
+                <!--  ==========  -->
+                <section class="span8 single single-page">
+
+                    <!--  ==========  -->
+                    <!--  = Post =  -->
+                    <!--  ==========  -->
+                    <article class="post">
+                        <div class="post-inner">
+                            <p>
+								{{ setting.description }}
+                            </p>
+                        </div>
+                    </article>
+
+                    <hr>
+
+                    <!--  ==========  -->
+                    <!--  = Contact Form =  -->
+                    <!--  ==========  -->
+                    <section class="contact-form-container">
+
+                        <h3 class="push-down-25"><span class="light">ارسال</span> پیام</h3>
+
+                        <form id="commentform" method="post" action="/contact" class="form form-actions form-contact">
+                            {% csrf_token %}
+                            <p class="push-down-20">
+                            {{ form.full_name.label }}
+                            {{ form.full_name }}
+                            {% for error in form.full_name.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            <p class="push-down-20">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                            {% for error in form.email.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            <p class="push-down-20">
+                            {{ form.subject.label }}
+                            {{ form.subject }}
+                            {% for error in form.subject.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            <p class="push-down-20">
+                            {{ form.text.label }}
+                            {{ form.text }}
+                            {% for error in form.text.errors %}
+                                <p class="alert alert-danger">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            <p>
+                                <button class="btn btn-primary bold" type="submit" tabindex="5" id="submit">ارسال پیام</button>
+                            </p>
+                        </form>
+                    </section>
+
+                    <hr>
+
+                    <!--  ==========  -->
+                    <!--  = Company Info with Google Maps =  -->
+                    <!--  ==========  -->
+                    <article class="company-info">
+                        <div class="row">
+                        	<div class="span3">
+                        		<h3 class="push-down-30"><span class="light">اطلاعات</span> شرکت</h3>
+
+                        		<p>
+                        		    <strong class="opensans dark-clr">{{ setting.title }}</strong>
+                        		    <br>
+                        		    {{ setting.address }}
+                        		</p>
+
+                        		<p>
+                        		    <strong class="opensans dark-clr">شماره تماس :</strong> {{ setting.phone }}
+                        		    <br>
+                        		    <strong class="opensans dark-clr">فکس:</strong> {{ setting.fax }}
+                        		    <br>
+                        		    <strong class="opensans dark-clr">ایمیل:</strong> <a href="#">{{ setting.email }}</a>
+                        		</p>
+                        	</div>
+                        	<div class="span5">
+                                <img src="{{ setting.max }}" alt="{{ setting.title }}">
+                            </div>
+                        </div>
+
+                    </article>
+
+                </section> <!-- /main content -->
+
+                <!--  ==========  -->
+                <!--  = Sidebar =  -->
+                <!--  ==========  -->
+                <aside class="span4">
+
+                    <!--  ==========  -->
+                    <!--  = Opening Times Widget =  -->
+                    <!--  ==========  -->
+                    <div class="sidebar-item opening-time" id="opening_time-4">
+                        <div class="underlined">
+                            <h3><span class="light">ساعات</span> کاری</h3>
+                        </div>
+                        <div class="time-table">
+                            {% for working in working_hours %}
+                                <dl class="week-day light-bg today">
+                                <dt>
+                                    {{ working.day_name }}
+                                </dt>
+                                <dd>
+                                    {{ working.times }}
+                                </dd>
+                            </dl>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </aside> <!-- /sidebar -->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

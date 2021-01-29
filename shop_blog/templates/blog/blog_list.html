@@ -1,0 +1,120 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="darker-stripe">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/">{{ setting.title }}</a>
+                        </li>
+                        <li><span class="icon-chevron-right"></span></li>
+                        <li>
+                            <a href="/blog">بلاگ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="push-up top-equal blocks-spacer">
+            <div class="row">
+
+                <!--  ==========  -->
+                <!--  = Main Title =  -->
+                <!--  ==========  -->
+
+                <div class="span12">
+                    <div class="title-area">
+                        <h1 class="inline"><span class="light">بلاگ</span> {{ setting.title }}</h1>
+                        <h2 class="inline tagline">- جایی که آدمهای باهوش، حرفهای احمقانه میزنند!</h2>
+                    </div>
+                </div>
+
+                <!--  ==========  -->
+                <!--  = Main content =  -->
+                <!--  ==========  -->
+                <section class="span8 blog">
+
+                    {% for blog in page_obj %}
+                        <article class="post format-image">
+                        <div class="post-inner">
+                            <a href="{{ blog.get_absolut_blog_url }}"><img src="{{ blog.image.url }}" alt="featured image" width="600" height="600"></a>
+                            <div class="post-title">
+                            	<h2><a href="{{ blog.get_absolut_blog_url }}"><span class="light">{{ blog.title }}</span></a></h2>
+                            	<div class="metadata">
+                            	    {{ blog.time }}
+                            	    <p> بازدید : {{ blog.blog_visit }}</p>
+                            	    نویسنده: <p>{{ blog.author_name }}</p>
+                            	</div>
+                            </div>
+
+                            <p class="push-down-25">
+                              {{ blog.description }}
+                            </p>
+
+                            <a href="{{ blog.get_absolut_blog_url }}" class="btn btn-primary bold higher">ادامه مطلب</a>
+                        </div>
+                    </article>
+                    {% endfor %}
+
+
+
+                    <hr>
+
+                    <!--  ==========  -->
+                    <!--  = Pagination =  -->
+                    <!--  ==========  -->
+                    <div class="pagination">
+                        <ul>
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary"><span class="icon-chevron-left"></span></a></li>
+                            {% endif %}
+
+                        {% for page in paginator.page_range %}
+                            {% if page == page_obj.number %}
+                                <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                                {% else %}
+                                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary"><span class="icon-chevron-right"></span></a></li>
+                        {% endif %}
+                        </ul>
+                    </div> <!-- /pagination -->
+
+                </section> <!-- /main content -->
+
+                <!--  ==========  -->
+                <!--  = Sidebar =  -->
+                <!--  ==========  -->
+                <aside class="span4 right-sidebar">
+
+                    <!--  ==========  -->
+                    <!--  = Search Widget =  -->
+                    <!--  ==========  -->
+                    <div class="sidebar-item widget_search">
+                        <!-- <div class="underlined">
+                            <h3><span class="light">Search</span></h3>
+                        </div> -->
+
+                        <form class="form" action="/blog/search" id="searchform" method="get" role="search">
+                            <input type="text" id="appendedInputButton" class="input-block-level" name="s" value="{{ request.GET.s }}" placeholder="جستجو در نوشته ها ...">
+                            <button type="submit">
+                                <i class="icon-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </aside> <!-- /sidebar -->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
